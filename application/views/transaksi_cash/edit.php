@@ -57,29 +57,12 @@ $(document).ready(function(){
             source: "<?php echo site_url('Admin/Transaksi_cash/get_autocomplete_namaMotor/?');?>"
             });
 
-    
-    $("#nama_motor").click(function () {
-        var nama_motor = $('#nama_motor').val();
+        var nomor_transaksi_cash = '<?php echo $transaksi_cash['nomor_transaksi_cash'] ?>';
         $.ajax({  
-            url:"<?php echo base_url(); ?>Admin/Transaksi_cash/edit_status_motor/"+nama_motor,  
-            method:"POST",  
-            data:{nama_motor:nama_motor},
+                     url:"<?php echo base_url(); ?>Admin/Transaksi_cash/edit_status_motor/"+nomor_transaksi_cash,   
+                     data:{nomor_transaksi_cash:nomor_transaksi_cash}
 
-                     
-    })
+        });
  });
-</script>
-<script type="text/javascript">
-/*$(document).ready(function(){
 
-$("#nama_motor").click(function () {
-        var nama_motor = $('#nama_motor').val();
-        $.ajax({  
-            url:"<?php echo base_url(); ?>Admin/Transaksi_cash/edit_status_motor/"+nama_motor,  
-            method:"POST",  
-            data:{nama_motor:nama_motor},
-
-                     
-    })
- });*/
 </script>

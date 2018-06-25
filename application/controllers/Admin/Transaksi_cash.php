@@ -33,6 +33,7 @@ Class Transaksi_cash extends CI_Controller{
 	}
 
 	function edit() {
+
         if (isset($_POST['edit'])) {
         	$nomor_transaksi_cash = $this->uri->segment(4);
             $this->Model_transaksi_cash->edit($nomor_transaksi_cash);
@@ -52,6 +53,7 @@ Class Transaksi_cash extends CI_Controller{
 
     function hapus() {
         $id = $this->uri->segment(4);
+        $this->Model_transaksi_cash->editStatusMotorSudahLaku($this->Model_transaksi_cash->findNomorMotor($id));
         $this->db->where('nomor_transaksi_cash', $id);
         $this->db->delete('transaksi_cash');
         redirect('Admin/transaksi_cash');
@@ -85,8 +87,19 @@ Class Transaksi_cash extends CI_Controller{
     }
 
     function edit_status_motor() {
+         header('Content-Type: application/json');
         $nama_motor = $this->uri->segment(4);
-        $this->Model_transaksi_cash->editStatusMotor($this->Model_transaksi_cash->find_idmotor($nama_motor));
+      //  $hasil = $this->Model_transaksi_cash->editStatusMotorSudahLaku($this->Model_transaksi_cash->findNomorMotor($nama_motor));
+        $this->Model_transaksi_cash->editStatusMotorSudahLaku($this->Model_transaksi_cash->findNomorMotor($nama_motor));
+
+        /*if($hasil == true){
+            $data['status'] = 'betul';
+        }
+        else if($hasil == false){
+            $data['status'] = 'salah';
+
+        }
+        echo json_encode($data);*/
     }
 
 

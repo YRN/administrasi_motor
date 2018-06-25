@@ -72,28 +72,45 @@ Class Model_transaksi_cash extends CI_model{
        $query = $this->db->get();
        $data = $query->row_Array();
 
-       $value = $data['status_motor'];
 
-       if($value == 'sudah laku'){
-            $change_data = array(
 
-                'status_motor' => 'belum laku'
-            );
+       if( $data['status_motor'] == 'sudah laku'){
+            $this->db->query("UPDATE motor
+                              SET status_motor = 'belum laku'
+                              WHERE nomor_motor = '$nomor_motor' ;");
        }
-       else if($value == 'belum laku'){
-           $change_data = array(
-
-                'status_motor' => 'sudah laku'
-            );
+       else if( $data['status_motor'] == 'belum laku'){
+           $this->db->query("UPDATE motor
+                              SET status_motor = 'sudah laku'
+                              WHERE nomor_motor = '$nomor_motor' ;");
        }
-
-        $this->db->where('nomor_motor',$nomor_motor);
-        $this->db->update('motor',$change_data);
-
-
-       
-
     }
+
+
+       function editStatusMotorSudahLaku($nomor_motor){
+  
+            $this->db->query("UPDATE motor
+                              SET status_motor = 'belum laku'
+                              WHERE nomor_motor = '$nomor_motor'");
+            /*if ($this->db->affected_rows() == '1') {
+                  return true;
+            } 
+            else {
+                  // any trans error?
+                  if ($this->db->trans_status() === FALSE) {
+                      return false;
+                  }
+                  //return true;
+            }*/
+      }
+
+      function findNomorMotor($nomor_transaksi_cash){
+
+        $data = $this->db->get_where('transaksi_cash', array('nomor_transaksi_cash' => $nomor_transaksi_cash))->row_Array();
+        return $data['nomor_motor'];
+
+      }
+    
 
 
 
